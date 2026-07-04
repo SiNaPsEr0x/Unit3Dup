@@ -35,6 +35,7 @@ base_url = "https://api.themoviedb.org/3"
 ENABLE_LOG = True
 T = TypeVar('T')
 
+
 class MovieEndpoint:
     @staticmethod
     def search(query: str) -> dict:
@@ -275,10 +276,12 @@ class DbOnline(TmdbAPI):
                         continue
 
                 # Search for title
-                if ManageTitles.fuzzyit(str1=self.query, str2=ManageTitles.clean_text(result.get_title())) > 95:
+                if ManageTitles.fuzzyit(str1=ManageTitles.clean_text(self.query),
+                                        str2=ManageTitles.clean_text(result.get_title())) > 95:
                     return result
 
-                if ManageTitles.fuzzyit(str1=self.query, str2=ManageTitles.clean_text(result.get_original())) > 95:
+                if ManageTitles.fuzzyit(str1=ManageTitles.clean_text(self.query),
+                                        str2=ManageTitles.clean_text(result.get_original())) > 95:
                     return result
 
             # Search for alternative title
@@ -336,8 +339,8 @@ class DbOnline(TmdbAPI):
 
         # or start an on-line search
         results = self._search(self.query, self.category)
-        # Use imdb_id when tmdb_id is not available
 
+        # Use imdb_id when tmdb_id is not available
         tvdb_result = self.tvdb_search()
         if tvdb_result:
             self.tvdb_id = tvdb_result.get('tvdb_id', None)
