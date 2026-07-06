@@ -323,6 +323,9 @@ class Media:
     @property
     def _resolution2(self):
         if self.mediafile:
+            if 'Unknown' in self.mediafile.video_width:
+                print(f"{self.file_name} Video width unknown or file corrupted")
+                exit()
             width = int(self.mediafile.video_width)
             if self.mediafile.video_width:
                 if width >= 3200:
