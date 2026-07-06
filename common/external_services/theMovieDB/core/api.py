@@ -438,7 +438,7 @@ class DbOnline(TmdbAPI):
             return result[0].items[0].id.videoId
         else:
             if not config_settings.user_preferences.SKIP_YOUTUBE:
-                user_youtube_id = custom_console.user_input_str(message="Title not found."
+                user_youtube_id = custom_console.user_input_str(message="Sorry trailer not found."
                                                                         " Please digit a valid Youtube ID (0=skip)->")
                 if user_youtube_id == 0:
                     return "not available"
