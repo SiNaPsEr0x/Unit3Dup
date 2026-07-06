@@ -128,8 +128,8 @@ class UserPreferences(BaseModel):
     TAGS_POSITION_SERIE: list[str] | None = None
 
     NUMBER_OF_SCREENSHOTS: int = 4
-    YOUTUBE_FAV_CHANNEL_ID: str | None = None
-    YOUTUBE_CHANNEL_ENABLE: bool = False
+    # YOUTUBE_FAV_CHANNEL_ID: str | None = None
+    # YOUTUBE_CHANNEL_ENABLE: bool = False
     DUPLICATE_ON: bool = False
     SKIP_DUPLICATE: bool = False
     SKIP_TMDB: bool = False
@@ -652,8 +652,8 @@ class Load:
                                         "multi", "acodec", "channels", "flag", "subtitle", "hdr", "vcodec",
                                         "video_encoder"],
 
-                "YOUTUBE_FAV_CHANNEL_ID": "UCGCbxpnt25hWPFLSbvwfg_w",
-                "YOUTUBE_CHANNEL_ENABLE": "False",
+                # "YOUTUBE_FAV_CHANNEL_ID": "UCGCbxpnt25hWPFLSbvwfg_w",
+                # "YOUTUBE_CHANNEL_ENABLE": "False",
                 "DUPLICATE_ON": "true",
                 "SKIP_DUPLICATE": "false",
                 "SKIP_TMDB": "false",
