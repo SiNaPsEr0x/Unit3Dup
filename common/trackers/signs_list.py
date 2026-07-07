@@ -150,6 +150,7 @@ SIGNS_LIST = {
     "MADHEX": "releaser",
     "MADSKY": "releaser",
     "MADTIA": "releaser",
+    "MATITA": "releaser",
     "MAX": "releaser",
     "MAX2014": "releaser",
     "ME7ALH": "releaser",
