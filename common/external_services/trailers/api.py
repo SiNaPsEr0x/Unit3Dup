@@ -15,7 +15,7 @@ class YtTrailer:
     def __init__(self, title: str):
 
         # Add language to the query (title) string to increase the prob of getting results in the pref lang
-        force_query = ManageTitles.iso_3166_alpha2_to_alpha3.get(config_settings.user_preferences.PREFERRED_LANG.upper(), "")
+        force_query = ManageTitles.iso_3166_alpha2_to_alpha3.get(config_settings.user_preferences.YOUTUBE_PREF_LANG.upper(), "")
         self.title = f"{title} {force_query}"
         self.params = {
             'part': 'snippet',
@@ -29,8 +29,8 @@ class YtTrailer:
 
         # Use pref language for searching
         self.params['userId'] = 'me'
-        self.params['regionCode'] = config_settings.user_preferences.PREFERRED_LANG.upper()
-        self.params['relevanceLanguage'] = config_settings.user_preferences.PREFERRED_LANG.lower()
+        self.params['regionCode'] = config_settings.user_preferences.YOUTUBE_PREF_LANG.upper()
+        self.params['relevanceLanguage'] = config_settings.user_preferences.YOUTUBE_PREF_LANG.lower()
 
         attempt: int = 0
         max_attempts: int = 3

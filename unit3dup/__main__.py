@@ -28,6 +28,7 @@ def main():
     custom_console.bot_log(f"[Watcher] '{config.user_preferences.WATCHER_PATH}'")
     custom_console.bot_log(f"[Watcher] '{config.user_preferences.WATCHER_DESTINATION_PATH}'")
     custom_console.bot_log(f"[Preferred Language] '{config.user_preferences.PREFERRED_LANG}'")
+    custom_console.bot_log(f"[Youtube Preferred Language] '{config.user_preferences.YOUTUBE_PREF_LANG}'")
     print()
 
     # /// Initialize command line interface
