@@ -651,7 +651,7 @@ class Load:
                                         "multi", "acodec", "channels", "flag", "subtitle", "hdr", "vcodec",
                                         "video_encoder"],
 
-                "YOUTUBE_PREF_LANGUAGE": "IT",
+                "YOUTUBE_PREF_LANG": "IT",
                 "DUPLICATE_ON": "true",
                 "SKIP_DUPLICATE": "false",
                 "SKIP_TMDB": "false",
