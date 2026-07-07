@@ -24,7 +24,7 @@ user_tags_file = "tags_list.json"
 user_sign_file = "sign_list.json"
 bane_file = "ban_list.json"
 
-version = "0.14.3"
+version = "0.14.6"
 
 if os.name == "nt":
     WATCHER_DESTINATION_PATH: Path = Path(
@@ -128,8 +128,7 @@ class UserPreferences(BaseModel):
     TAGS_POSITION_SERIE: list[str] | None = None
 
     NUMBER_OF_SCREENSHOTS: int = 4
-    YOUTUBE_FAV_CHANNEL_ID: str | None = None
-    YOUTUBE_CHANNEL_ENABLE: bool = False
+    YOUTUBE_PREF_LANG: str | None = None
     DUPLICATE_ON: bool = False
     SKIP_DUPLICATE: bool = False
     SKIP_TMDB: bool = False
@@ -490,7 +489,7 @@ class Config(BaseModel):
                              'FAST_LOAD']:
                     section[field] = Validate.integer(value=section[field], field_name=field)
 
-                if field == 'PREFERRED_LANG':
+                if field in ['PREFERRED_LANG', 'YOUTUBE_PREF_LANG']:
                     section[field] = Validate.iso3166(value=section[field], field_name=field)
 
                 if field == 'CACHE_PATH':
@@ -652,8 +651,7 @@ class Load:
                                         "multi", "acodec", "channels", "flag", "subtitle", "hdr", "vcodec",
                                         "video_encoder"],
 
-                "YOUTUBE_FAV_CHANNEL_ID": "UCGCbxpnt25hWPFLSbvwfg_w",
-                "YOUTUBE_CHANNEL_ENABLE": "False",
+                "YOUTUBE_PREF_LANG": "IT",
                 "DUPLICATE_ON": "true",
                 "SKIP_DUPLICATE": "false",
                 "SKIP_TMDB": "false",

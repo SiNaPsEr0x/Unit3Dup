@@ -228,6 +228,10 @@ class ManageTitles:
         """
         str2 = str2.lower().replace("-", "")
         str2 = ManageTitles.clean(str2)
+
+        str1 = str1.lower().replace("-", "")
+        str1 = ManageTitles.clean(str1)
+
         return fuzz.ratio(ManageTitles.remove_accent(str1.lower()), ManageTitles.remove_accent(str2.lower()))
 
     @staticmethod

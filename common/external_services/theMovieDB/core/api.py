@@ -430,6 +430,9 @@ class DbOnline(TmdbAPI):
         if 'no_key' in config_settings.tracker_config.YOUTUBE_KEY:
             return "not available"
 
+        if config_settings.user_preferences.SKIP_YOUTUBE:
+            return "Skipped"
+
         yt_trailer = YtTrailer(self.query)
         result = yt_trailer.get_trailer_link()
         if result:
@@ -437,13 +440,11 @@ class DbOnline(TmdbAPI):
             # todo compare against the media title especially for the favorite channel
             return result[0].items[0].id.videoId
         else:
-            if not config_settings.user_preferences.SKIP_YOUTUBE:
-                user_youtube_id = custom_console.user_input_str(message="Title not found."
-                                                                        " Please digit a valid Youtube ID (0=skip)->")
-                if user_youtube_id == 0:
-                    return "not available"
-                return user_youtube_id
-            return None
+            user_youtube_id = custom_console.user_input_str(message="Sorry trailer not found."
+                                                                    " Please digit a valid Youtube ID (0=skip)->")
+            if user_youtube_id == 0:
+                return "not available"
+            return user_youtube_id
 
     def trailer(self, video_id: int) -> str | None:
         # Search for tmdb trailer
@@ -474,7 +475,10 @@ class DbOnline(TmdbAPI):
         if results.tvdb_id:
             custom_console.bot_warning_log(f"'TVDB ID'........ '{results.tvdb_id}'")
         custom_console.bot_log(f"'TMDB KEYWORDS'.. {results.keywords_list}")
-        custom_console.bot_log(f"'TRAILER CODE' .. {results.trailer_key}")
+        if 'SKIPPED' in results.trailer_key.upper():
+            custom_console.bot_log(f"'TRAILER' ....... {results.trailer_key}")
+        else:
+            custom_console.bot_log(f"'TRAILER' ....... https://www.youtube.com/watch?v={results.trailer_key}")
 
     def load_cache(self, query: str) -> MediaResult | None:
         # Check if the item is in the cache
