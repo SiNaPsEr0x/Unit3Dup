@@ -430,7 +430,7 @@ class DbOnline(TmdbAPI):
         if 'no_key' in config_settings.tracker_config.YOUTUBE_KEY:
             return "not available"
 
-        if not config_settings.user_preferences.SKIP_YOUTUBE:
+        if config_settings.user_preferences.SKIP_YOUTUBE:
             return "Skipped"
 
         yt_trailer = YtTrailer(self.query)
@@ -475,7 +475,10 @@ class DbOnline(TmdbAPI):
         if results.tvdb_id:
             custom_console.bot_warning_log(f"'TVDB ID'........ '{results.tvdb_id}'")
         custom_console.bot_log(f"'TMDB KEYWORDS'.. {results.keywords_list}")
-        custom_console.bot_log(f"'TRAILER' ....... https://www.youtube.com/watch?v={results.trailer_key}")
+        if 'SKIPPED' in results.trailer_key.upper():
+            custom_console.bot_log(f"'TRAILER' ....... {results.trailer_key}")
+        else:
+            custom_console.bot_log(f"'TRAILER' ....... https://www.youtube.com/watch?v={results.trailer_key}")
 
     def load_cache(self, query: str) -> MediaResult | None:
         # Check if the item is in the cache
