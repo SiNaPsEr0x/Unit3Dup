@@ -21,7 +21,7 @@ class Video:
         self.display_name: str = media.display_name
 
         self.tmdb_id: int = tmdb_id
-        self.trailer_key: int = trailer_key
+        self.trailer_key: str = trailer_key
         self.cache = diskcache.Cache(str(config_settings.user_preferences.CACHE_PATH))
 
         # Create a cache key for tmdb_id
@@ -94,7 +94,7 @@ class Video:
             [center][url={config_settings.user_preferences.MY_URL}]Tutte le mie release[/url][/center]
             """
 
-            if self.trailer_key:
+            if 'SKIPPED' not in self.trailer_key.upper() and self.trailer_key.upper() is not None:
                 self.description += (f"[b][spoiler=Spoiler: PLAY TRAILER][center][youtube]{self.trailer_key}[/youtube]"
                                      f"[/center][/spoiler][/b]")
             self.is_hd = is_hd
