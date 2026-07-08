@@ -76,7 +76,6 @@ class UserContent:
 
         if not tracker_name_list:
             tracker_name_list = [selected_tracker]
-        custom_console.bot_log(f"UPLOAD TO {tracker_name_list}")
 
         # // Read the existing torrent file
         with open(torrent_path, 'rb') as f:
@@ -239,7 +238,7 @@ class UserContent:
         if not bittorrent_list:
             return None
 
-        custom_console.bot_warning_log(f"\nSending {message} torrents to the "
+        custom_console.bot_log(f"\nSending {message} torrents to the "
                                        f"{config_settings.torrent_client_config.TORRENT_CLIENT.upper()} client "
                                        f"... Please wait")
 
