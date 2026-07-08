@@ -454,7 +454,6 @@ class DbOnline(TmdbAPI):
         if trailers:
             trailer = next((video for video in trailers if video.site.lower() == 'youtube'), None)
             if trailer:
-                custom_console.bot_warning_log(f"trailer: {trailer} TMDB")
                 return trailer.key
             else:
                 return "not available"
