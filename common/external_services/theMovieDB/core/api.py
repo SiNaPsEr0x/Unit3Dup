@@ -450,8 +450,7 @@ class DbOnline(TmdbAPI):
         # Search for tmdb trailer
         trailers = self._videos(video_id, self.category)
         if trailers:
-            trailer = next((video for video in trailers if video.type.lower() == 'trailer'
-                            and video.site.lower() == 'youtube'), None)
+            trailer = next((video for video in trailers if video.site.lower() == 'youtube'), None)
             if trailer:
                 return trailer.key
             else:

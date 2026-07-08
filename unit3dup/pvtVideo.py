@@ -94,7 +94,7 @@ class Video:
             [center][url={config_settings.user_preferences.MY_URL}]Tutte le mie release[/url][/center]
             """
 
-            if 'SKIPPED' not in self.trailer_key.upper() and self.trailer_key.upper() is not None:
+            if self.trailer_key is not None and self.trailer_key.upper() not in ['SKIPPED', 'NOT AVAILABLE']:
                 self.description += (f"[b][spoiler=Spoiler: PLAY TRAILER][center][youtube]{self.trailer_key}[/youtube]"
                                      f"[/center][/spoiler][/b]")
             self.is_hd = is_hd
