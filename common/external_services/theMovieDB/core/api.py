@@ -476,7 +476,7 @@ class DbOnline(TmdbAPI):
         if results.tvdb_id:
             custom_console.bot_warning_log(f"'TVDB ID'........ '{results.tvdb_id}'")
         custom_console.bot_log(f"'TMDB KEYWORDS'.. {results.keywords_list}")
-        if 'SKIPPED' in results.trailer_key.upper():
+        if results.trailer_key.upper() in  ['SKIPPED', 'NOT AVAILABLE']:
             custom_console.bot_log(f"'TRAILER' ....... {results.trailer_key}")
         else:
             custom_console.bot_log(f"'TRAILER' ....... https://www.youtube.com/watch?v={results.trailer_key}")
