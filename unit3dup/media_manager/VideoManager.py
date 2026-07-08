@@ -48,6 +48,8 @@ class VideoManager:
 
         #  Init the torrent list
         bittorrent_list = []
+        # Tags list extracted used to build title ( -b flag)
+        tags_dictionary = {}
         for content in self.contents:
             # /// User request to build the title; overwriting display_name
             if self.cli.buildtags:
@@ -67,7 +69,8 @@ class VideoManager:
                                          ban_list=self.ban_list,
                                          media=content,
                                          )
-                content.display_name = search_tags.process()
+                content.display_name, tags_dictionary = search_tags.process()
+
 
             # get the archive path
             archive = os.path.join(tracker_archive, selected_tracker)
@@ -103,8 +106,17 @@ class VideoManager:
                 video_info = Video(media=content, tmdb_id=db.video_id, trailer_key=db.trailer_key)
                 video_info.build_info()
 
-                # print the title will be shown on the torrent page
-                custom_console.bot_log(f"'DISPLAYNAME'...{{{content.display_name}}}\n")
+                # Tags found ( -b flag)
+                if tags_dictionary:
+                    custom_console.bot_log(f"\n[GENERATING DISPLAYNAME..]")
+                    for key, value in tags_dictionary.items():
+                        if isinstance(value, list):
+                            value = " ".join(value)
+                        custom_console.bot_log(f"{key:<13} '{value}'")
+                    custom_console.bot_log(f"Done.\n")
+                else:
+                    # print the title will be shown on the torrent page
+                    custom_console.bot_log(f"'DISPLAYNAME'...{{{content.display_name}}}\n")
 
                 # Tracker instance
                 unit3d_up = UploadBot(content=content, tracker_name=selected_tracker, cli=self.cli)

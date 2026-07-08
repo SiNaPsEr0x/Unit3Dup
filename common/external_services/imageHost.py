@@ -277,7 +277,7 @@ class Build:
         description = "[center]\n"
         console_url = []
 
-        custom_console.bot_log("Starting image upload..")
+        custom_console.bot_log(f"\n[STARTING IMAGE UPLOAD..]")
         _number = 0
         for img_bytes in self.extracted_frames:
             _number = _number + 1

@@ -142,7 +142,7 @@ class SearchTags(object):
         refactored = ' '.join(build) + self.releaser_sign
         return refactored
 
-    def process(self) -> str:
+    def process(self) -> tuple[str, dict]:
         patterns = []
 
         # Remove banned items from categories
@@ -251,10 +251,8 @@ class SearchTags(object):
             for k in self.tags_position
             if k in self.tags_dict
         }
-
         new_title = self.build_title(tags_dict)
-
-        return new_title
+        return new_title, tags_dict
 
     def mediainfo_audio(self, category: str) -> dict:
         languages = []
