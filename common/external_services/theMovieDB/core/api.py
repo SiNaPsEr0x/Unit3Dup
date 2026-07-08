@@ -436,9 +436,11 @@ class DbOnline(TmdbAPI):
         yt_trailer = YtTrailer(self.query)
         result = yt_trailer.get_trailer_link()
         if result:
-            # choose the first in the list
-            # todo compare against the media title especially for the favorite channel
-            return result[0].items[0].id.videoId
+            for r in result:
+                title = r.items[0].snippet.title if r.items else None
+                if self.query in title:
+                    return r.items[0].id.videoId
+            return "not available"
         else:
             user_youtube_id = custom_console.user_input_str(message="Sorry trailer not found."
                                                                     " Please digit a valid Youtube ID (0=skip)->")
@@ -452,6 +454,7 @@ class DbOnline(TmdbAPI):
         if trailers:
             trailer = next((video for video in trailers if video.site.lower() == 'youtube'), None)
             if trailer:
+                custom_console.bot_warning_log(f"trailer: {trailer} TMDB")
                 return trailer.key
             else:
                 return "not available"
