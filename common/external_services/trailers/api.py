@@ -22,7 +22,7 @@ class YtTrailer:
             'q': f'{self.title} trailer',
             'type': 'video',
             'key': config_settings.tracker_config.YOUTUBE_KEY,
-            'maxResults': 3,
+            'maxResults': 50,
         }
 
     def get_trailer_link(self) -> list[YouTubeSearchResponse] | None:
@@ -37,11 +37,9 @@ class YtTrailer:
         response = None
 
         while attempt < max_attempts:
-            custom_console.bot_log("Searching YouTube for a trailer...")
             try:
                 response = requests.get(self.url, params=self.params, timeout=5)
                 if response.status_code == 200:
-                    custom_console.bot_log("YouTube Response with no error")
                     break
             except requests.RequestException:
                 custom_console.error(f"Could not connect to YouTube API {response.status_code}")

@@ -436,9 +436,11 @@ class DbOnline(TmdbAPI):
         yt_trailer = YtTrailer(self.query)
         result = yt_trailer.get_trailer_link()
         if result:
-            # choose the first in the list
-            # todo compare against the media title especially for the favorite channel
-            return result[0].items[0].id.videoId
+            for r in result:
+                title = r.items[0].snippet.title if r.items else None
+                if self.query in title:
+                    return r.items[0].id.videoId
+            return "not available"
         else:
             user_youtube_id = custom_console.user_input_str(message="Sorry trailer not found."
                                                                     " Please digit a valid Youtube ID (0=skip)->")
@@ -450,8 +452,7 @@ class DbOnline(TmdbAPI):
         # Search for tmdb trailer
         trailers = self._videos(video_id, self.category)
         if trailers:
-            trailer = next((video for video in trailers if video.type.lower() == 'trailer'
-                            and video.site.lower() == 'youtube'), None)
+            trailer = next((video for video in trailers if video.site.lower() == 'youtube'), None)
             if trailer:
                 return trailer.key
             else:
@@ -475,7 +476,7 @@ class DbOnline(TmdbAPI):
         if results.tvdb_id:
             custom_console.bot_warning_log(f"'TVDB ID'........ '{results.tvdb_id}'")
         custom_console.bot_log(f"'TMDB KEYWORDS'.. {results.keywords_list}")
-        if 'SKIPPED' in results.trailer_key.upper():
+        if results.trailer_key.upper() in  ['SKIPPED', 'NOT AVAILABLE']:
             custom_console.bot_log(f"'TRAILER' ....... {results.trailer_key}")
         else:
             custom_console.bot_log(f"'TRAILER' ....... https://www.youtube.com/watch?v={results.trailer_key}")
