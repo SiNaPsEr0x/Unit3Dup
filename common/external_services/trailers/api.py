@@ -22,7 +22,7 @@ class YtTrailer:
             'q': f'{self.title} trailer',
             'type': 'video',
             'key': config_settings.tracker_config.YOUTUBE_KEY,
-            'maxResults': 3,
+            'maxResults': 50,
         }
 
     def get_trailer_link(self) -> list[YouTubeSearchResponse] | None:
